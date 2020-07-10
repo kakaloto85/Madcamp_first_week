@@ -48,7 +48,7 @@ public class Image_Adapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null){
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(95, 95));
+            imageView.setLayoutParams(new GridView.LayoutParams(340, 350));
             imageView.setAdjustViewBounds(false);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(2, 2, 2, 2);
@@ -58,7 +58,7 @@ public class Image_Adapter extends BaseAdapter {
         BitmapFactory.Options bo = new BitmapFactory.Options();
         bo.inSampleSize = 8;
         Bitmap bmp = BitmapFactory.decodeFile(thumbsDataList.get(position), bo);
-        Bitmap resized = Bitmap.createScaledBitmap(bmp, 95, 95, true);
+        Bitmap resized = Bitmap.createScaledBitmap(bmp, 340, 350, true);
         imageView.setImageBitmap(resized);
 
         return imageView;

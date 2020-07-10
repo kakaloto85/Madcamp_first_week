@@ -20,24 +20,6 @@ import android.widget.Toast;
 public class tab2 extends Fragment {
 
     private GridView mgridView;
-    private int [] imageArray = {
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4,
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4,
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4,
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4
-    };
 //권한에 대한 응답이 있을때 작동하는 함수
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
@@ -66,12 +48,18 @@ public class tab2 extends Fragment {
         }else { // 모두 허용 상태
             Toast.makeText(getContext(), "권한을 모두 허용", Toast.LENGTH_SHORT).show(); } }
 
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        checkSelfPermission();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab2, container, false);
-        checkSelfPermission();
 
         mgridView = (GridView) view.findViewById(R.id.grid_view);
         mgridView.setAdapter(new Image_Adapter(getActivity()));
