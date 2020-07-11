@@ -4,8 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.transition.FragmentTransitionSupport;
 
-public class PageAdapter extends FragmentPagerAdapter {
+import static androidx.viewpager.widget.PagerAdapter.POSITION_NONE;
+
+public class PageAdapter extends FragmentStatePagerAdapter {
     private int numberoftabs;
     public PageAdapter(@NonNull FragmentManager fm, int numberoftabs) {
         super(fm);
@@ -17,6 +21,7 @@ public class PageAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
+
                 return new tab1();
             case 1:
                 return new tab2();

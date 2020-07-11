@@ -48,7 +48,7 @@ public class Image_Adapter extends BaseAdapter {
         ImageView imageView;
         if (convertView == null){
             imageView = new ImageView(mContext);
-            imageView.setLayoutParams(new GridView.LayoutParams(95, 95));
+            imageView.setLayoutParams(new GridView.LayoutParams(340, 350));
             imageView.setAdjustViewBounds(false);
             imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
             imageView.setPadding(2, 2, 2, 2);
@@ -56,10 +56,8 @@ public class Image_Adapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
         BitmapFactory.Options bo = new BitmapFactory.Options();
-        bo.inSampleSize = 8;
         Bitmap bmp = BitmapFactory.decodeFile(thumbsDataList.get(position), bo);
-        Bitmap resized = Bitmap.createScaledBitmap(bmp, 95, 95, true);
-        imageView.setImageBitmap(resized);
+        imageView.setImageBitmap(bmp);
 
         return imageView;
     }
@@ -99,27 +97,8 @@ public class Image_Adapter extends BaseAdapter {
             }while (imageCursor.moveToNext());
         }
         imageCursor.close();
-        return;
     }
 
-    private String getImageInfo(String ImageData, String Location, String thumbID){
-        String imageDataPath = null;
-        String[] proj = {MediaStore.Images.Media._ID,
-                MediaStore.Images.Media.DATA,
-                MediaStore.Images.Media.DISPLAY_NAME,
-                MediaStore.Images.Media.SIZE};
-        Cursor imageCursor = mContext.getContentResolver().query(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-                proj, "_ID='"+ thumbID +"'", null, null);
-
-        if (imageCursor != null && imageCursor.moveToFirst()){
-            if (imageCursor.getCount() > 0){
-                int imgData = imageCursor.getColumnIndex(MediaStore.Images.Media.DATA);
-                imageDataPath = imageCursor.getString(imgData);
-            }
-        }
-        imageCursor.close();
-        return imageDataPath;
-    }
 }
 
 

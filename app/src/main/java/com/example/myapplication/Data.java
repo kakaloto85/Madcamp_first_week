@@ -2,23 +2,23 @@ package com.example.myapplication;
 
 public class Data {
 
-    private String title;
-    private String content;
+    private String name;
+    private String number;
 
-    public String getTitle() {
-        return title;
+    public String getName() {
+        return name;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getContent() {
-        return content;
+    public String getNumber() {
+        return number;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setNumber(String number) {
+        this.number =number;
     }
 
 }

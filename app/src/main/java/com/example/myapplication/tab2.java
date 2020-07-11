@@ -20,61 +20,21 @@ import android.widget.Toast;
 public class tab2 extends Fragment {
 
     private GridView mgridView;
-    private int [] imageArray = {
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4,
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4,
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4,
-            R.drawable.img1,
-            R.drawable.img2,
-            R.drawable.img3,
-            R.drawable.img4
-    };
-//권한에 대한 응답이 있을때 작동하는 함수
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-    { //권한을 허용 했을 경우
-        if(requestCode == 1){
-            int length = permissions.length;
-            for (int i = 0; i < length; i++) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    // 동의
-                    Log.d("MainActivity","권한 허용 : " + permissions[i]);
-                }
-            }
-        }
-    }
-    public void checkSelfPermission() {
-        String temp = "";
-        //파일 읽기 권한 확인
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        { temp += Manifest.permission.READ_EXTERNAL_STORAGE + " "; }
-        //파일 쓰기 권한 확인
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        { temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " "; }
-        if (TextUtils.isEmpty(temp) == false) {
-            // 권한 요청
-            ActivityCompat.requestPermissions(getActivity(), temp.trim().split(" "),1);
-        }else { // 모두 허용 상태
-            Toast.makeText(getContext(), "권한을 모두 허용", Toast.LENGTH_SHORT).show(); } }
+    private Image_Adapter image_adapter;
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+}
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab2, container, false);
-        checkSelfPermission();
+        image_adapter=new Image_Adapter(getActivity());
 
         mgridView = (GridView) view.findViewById(R.id.grid_view);
-        mgridView.setAdapter(new Image_Adapter(getActivity()));
+        mgridView.setAdapter( image_adapter);
         return view;
     }
 }
