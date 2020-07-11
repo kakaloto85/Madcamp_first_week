@@ -14,7 +14,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class tab2 extends Fragment {
@@ -39,9 +41,6 @@ public class tab2 extends Fragment {
         //파일 읽기 권한 확인
         if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
         { temp += Manifest.permission.READ_EXTERNAL_STORAGE + " "; }
-        //파일 쓰기 권한 확인
-        if (ContextCompat.checkSelfPermission(getContext(), Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        { temp += Manifest.permission.WRITE_EXTERNAL_STORAGE + " "; }
         if (TextUtils.isEmpty(temp) == false) {
             // 권한 요청
             ActivityCompat.requestPermissions(getActivity(), temp.trim().split(" "),1);
@@ -62,7 +61,13 @@ public class tab2 extends Fragment {
         View view = inflater.inflate(R.layout.fragment_tab2, container, false);
 
         mgridView = (GridView) view.findViewById(R.id.grid_view);
-        mgridView.setAdapter(new Image_Adapter(getActivity()));
+        final Image_Adapter ia = new Image_Adapter(getActivity());
+        mgridView.setAdapter(ia);
+        mgridView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            public void onItemClick(AdapterView parent, View v, int position, long id){
+                ia.callImageViewer(position);
+            }
+        });
         return view;
     }
 }

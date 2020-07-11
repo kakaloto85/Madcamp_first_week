@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -56,12 +57,18 @@ public class Image_Adapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
         BitmapFactory.Options bo = new BitmapFactory.Options();
-        bo.inSampleSize = 8;
         Bitmap bmp = BitmapFactory.decodeFile(thumbsDataList.get(position), bo);
         Bitmap resized = Bitmap.createScaledBitmap(bmp, 340, 350, true);
         imageView.setImageBitmap(resized);
 
         return imageView;
+    }
+
+    public final void callImageViewer(int selectedIndex){
+        Intent i = new Intent(mContext, ImagePopup.class);
+        String imgPath = getImageInfo(imgData, geoData, thumbsIDList.get(selectedIndex));
+        i.putExtra("filename", imgPath);
+        mContext.startActivity(i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
     private void getThumbInfo(ArrayList thumbsIDs, ArrayList thumbsDatas){
