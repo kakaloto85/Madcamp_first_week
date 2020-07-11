@@ -2,10 +2,13 @@ package com.example.myapplication;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -13,6 +16,8 @@ import android.widget.GridView;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
+
+import static android.content.Context.MODE_PRIVATE;
 
 
 public class Image_Adapter extends BaseAdapter {
@@ -67,9 +72,15 @@ public class Image_Adapter extends BaseAdapter {
     public final void callImageViewer(int selectedIndex){
         Intent i = new Intent(mContext, ImagePopup.class);
         String imgPath = getImageInfo(imgData, geoData, thumbsIDList.get(selectedIndex));
+        SharedPreferences sp = mContext.getSharedPreferences("DB",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString("imgPath", imgPath);
+        editor.commit();
+        Log.d("callimageviewer", "----------------------------------------------------");
         i.putExtra("filename", imgPath);
         mContext.startActivity(i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
+
 
     private void getThumbInfo(ArrayList thumbsIDs, ArrayList thumbsDatas){
         String[] proj = {MediaStore.Images.Media._ID,

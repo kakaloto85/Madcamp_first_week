@@ -1,6 +1,7 @@
 package com.example.myapplication;
 
 import android.Manifest;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 
@@ -19,9 +20,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import static android.content.Context.MODE_PRIVATE;
+
 public class tab2 extends Fragment {
 
     private GridView mgridView;
+    private SharedPreferences sp;
 //권한에 대한 응답이 있을때 작동하는 함수
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
@@ -52,6 +56,7 @@ public class tab2 extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         checkSelfPermission();
+        sp = getActivity().getSharedPreferences("DB",MODE_PRIVATE);
     }
 
     @Override
