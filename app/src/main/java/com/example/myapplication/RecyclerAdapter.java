@@ -72,7 +72,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                         intent.putExtra("name", listData.get(pos).getName());
                         intent.putExtra("number", listData.get(pos).getNumber());
 
-                        mContext.startActivity(intent);
+                        mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
 
                     }
 

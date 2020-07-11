@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
@@ -21,20 +22,23 @@ public class phonepopup extends Activity {
     }
     //확인 버튼 클릭
     public void yes(View v){
-        //데이터 전달하기
-        /*Intent intent = new Intent();
-        intent.putExtra("result", "Close Popup");
-        setResult(RESULT_OK, intent);*/
+        //데이터 전달받기
+        Intent i = getIntent();
+        Bundle extras = i.getExtras();
+        String name= extras.getString("name");
+        String number = extras.getString( "number");
+
+        //데이터 기록하기
+        SharedPreferences db = getSharedPreferences("DB", MODE_PRIVATE);
+        SharedPreferences.Editor editor = db.edit();
+        editor.putString("name", name);
+        editor.putString("number", number);
+        editor.commit();
 
         //액티비티(팝업) 닫기
         finish();
     }
     public void no(View v){
-        //데이터 전달하기
-        /*Intent intent = new Intent();
-        intent.putExtra("result", "Close Popup");
-        setResult(RESULT_OK, intent);*/
-
         //액티비티(팝업) 닫기
         finish();
     }
