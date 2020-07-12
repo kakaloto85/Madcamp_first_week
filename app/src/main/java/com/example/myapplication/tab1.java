@@ -28,7 +28,7 @@ public class tab1 extends Fragment {
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
 
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new RecyclerAdapter();
+        adapter = new RecyclerAdapter(getContext());
         recyclerView.setAdapter(adapter);
 
         //이름과 전화번호를 위한 리스트 생성
@@ -50,9 +50,9 @@ public class tab1 extends Fragment {
 
         // get user list
         Cursor clsCursor = getActivity().getContentResolver().query (
-            ContactsContract.Contacts.CONTENT_URI, arrProjection,
-            ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1" ,
-            null, null
+                ContactsContract.Contacts.CONTENT_URI, arrProjection,
+                ContactsContract.Contacts.HAS_PHONE_NUMBER + "=1" ,
+                null, null
         );
         //전화번호가 있는 사람들의 이름과 전화번호를 쿼리를 이용해 가져옴
         while( clsCursor.moveToNext() )
@@ -63,10 +63,10 @@ public class tab1 extends Fragment {
 
             // phone number
             Cursor clsPhoneCursor = getActivity().getContentResolver().query (
-                ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
-                arrPhoneProjection,
-                ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + strContactId,
-                null, null);
+                    ContactsContract.CommonDataKinds.Phone.CONTENT_URI,
+                    arrPhoneProjection,
+                    ContactsContract.CommonDataKinds.Phone.CONTACT_ID + " = " + strContactId,
+                    null, null);
 
             while( clsPhoneCursor.moveToNext() )
             {
@@ -83,8 +83,8 @@ public class tab1 extends Fragment {
         for (int i = 0; i < name.size(); i++) {
             // 각 List의 값들을 data 객체에 set 해줍니다.
             Data data = new Data();
-            data.setTitle((String) name.get(i));
-            data.setContent((String) number.get(i));
+            data.setName((String) name.get(i));
+            data.setNumber((String) number.get(i));
 
             // 각 값이 들어간 data를 adapter에 추가합니다.
             adapter.addItem(data);

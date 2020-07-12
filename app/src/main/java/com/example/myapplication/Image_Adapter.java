@@ -76,7 +76,6 @@ public class Image_Adapter extends BaseAdapter {
         SharedPreferences.Editor editor = sp.edit();
         editor.putString("imgPath", imgPath);
         editor.commit();
-        Log.d("callimageviewer", "----------------------------------------------------");
         i.putExtra("filename", imgPath);
         mContext.startActivity(i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }

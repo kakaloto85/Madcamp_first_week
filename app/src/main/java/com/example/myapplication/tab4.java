@@ -1,99 +1,97 @@
 package com.example.myapplication;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
-public class tab4 extends AppCompatActivity {
+public class tab4 extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "MainActivity";
-    Button load, save, delete;
-    EditText inputText;
+    private Button send;
+    private LinearLayout container;
     private SharedPreferences sp;
     private String imgpath;
-    private final int imgWidth = 410;
-    private final int imgHeight = 400;
-//    private String phonename = sp.getString("name", "");
+    private Context mContext = null;
+
+    //    private String phonename = sp.getString("name", "");
 //    private String phonenumber = sp.getString("number", "");
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tab4);
-        sp = getSharedPreferences("DB",MODE_PRIVATE);
+        mContext = this;
+        sp = getSharedPreferences("DB", MODE_PRIVATE);
         imgpath = sp.getString("imgPath", "");
         BitmapFactory.Options bfo = new BitmapFactory.Options();
         ImageView iv = (ImageView) findViewById(R.id.tab4_image);
         Bitmap bm = BitmapFactory.decodeFile(imgpath, bfo);
-        Bitmap resized = Bitmap.createScaledBitmap(bm, imgWidth, imgHeight, true);
+        Bitmap resized = Bitmap.createScaledBitmap(bm, 410, 400, true);
         iv.setImageBitmap(resized);
-
-        load= (Button) findViewById(R.id.load);
-        save = (Button) findViewById(R.id.save);
-        delete = (Button) findViewById(R.id.delete);
-        inputText = (EditText) findViewById(R.id.inputText);
-        load.setOnClickListener(listener);
-        save.setOnClickListener(listener);
-        delete.setOnClickListener(listener);
+        container = (LinearLayout)findViewById(R.id.activity_tab4);
+        send = (Button) findViewById(R.id.send);
+        send.setOnClickListener(this);
     }
-    View.OnClickListener listener = new View.OnClickListener() {
 
-        @Override
+    public Fragment calltabs(){
+//        sp = getSharedPreferences("DB", MODE_PRIVATE);
+//        String finalimg = sp.getString("screenshot", "");
+//        if(finalimg != null){
+//            BitmapFactory.Options bfo = new BitmapFactory.Options();
+//            ImageView iv = (ImageView) findViewById(R.id.letter);
+//            Bitmap bm = BitmapFactory.decodeFile(finalimg, bfo);
+//            Bitmap resized = Bitmap.createScaledBitmap(bm, 400, 677, true);
+//            iv.setImageBitmap(resized);
+//        }else{
+//
+//        }
 
-        public void onClick(View view) {
-            switch (view.getId()){
-                case R.id.load:
-                    Log.i("TAG", "load 진행");
-                    FileInputStream fis = null;
-                    try{
-                        fis = openFileInput("memo.txt");
-                        byte[] data = new byte[fis.available()];
-                        while( fis.read(data) != -1){
-                        }
-                        inputText.setText(new String(data));
-                        Toast.makeText(tab4.this, "load 완료", Toast.LENGTH_SHORT).show();
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }finally{
-                        try{ if(fis != null) fis.close(); }catch(Exception e){e.printStackTrace();}
-                    }
-                    break;
-                case R.id.save:
-                    Log.i("TAG", "save 진행");
-                    FileOutputStream fos = null;
-                    try{
-                        fos = openFileOutput("memo.txt", Context.MODE_PRIVATE);
-                        String out = inputText.getText().toString();
-                        fos.write(out.getBytes());
-                        Toast.makeText(tab4.this, "save 완료", Toast.LENGTH_SHORT).show();
-                    }catch(Exception e){
-                        e.printStackTrace();
-                    }finally{
-                        try{ if(fos != null) fos.close(); }catch(Exception e){e.printStackTrace();}
-                    }
-                    break;
-                case R.id.delete:
-                    Log.i("TAG", "delete 진행");
-                    boolean b = deleteFile("memo.txt");
-                    if(b){
-                        Toast.makeText(tab4.this, "delete 완료", Toast.LENGTH_SHORT).show();
-                    }else{
-                        Toast.makeText(tab4.this, "delete 실패", Toast.LENGTH_SHORT).show();
-                    }
-                    break;
-            }
+        tab3 f = new tab3();
+        return f;
+    }
+
+    @Override
+    public void onClick(View v){
+        switch (v.getId()) {
+            case R.id.send:
+                container.buildDrawingCache();
+                Bitmap captureView = container.getDrawingCache();
+                FileOutputStream fos;
+                try {
+                    sp = getSharedPreferences("DB",MODE_PRIVATE);
+                    String adress = Environment.getExternalStorageDirectory().toString()+"/capture.jpeg";
+                    SharedPreferences.Editor editor = sp.edit();
+                    editor.putString("screenshot", adress);
+                    editor.commit();
+                    fos = new FileOutputStream(adress);
+                    captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos);
+//                    Intent i = new Intent(mContext, MainActivity.class);
+//                    i.putExtra("letterfile", adress);
+//                    startActivity(i);
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+                Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_LONG).show();
         }
-    };
+        Intent i = new Intent(mContext, MainActivity.class);
+        startActivity(i);
+    }
 }

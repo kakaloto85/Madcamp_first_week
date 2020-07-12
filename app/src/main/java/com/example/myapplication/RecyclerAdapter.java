@@ -1,8 +1,12 @@
 package com.example.myapplication;
 
+import android.content.Context;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +19,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
     // adapter에 들어갈 list 입니다.
     private ArrayList<Data> listData = new ArrayList<>();
+    private Context mContext;
+    RecyclerAdapter(Context c){
+        mContext = c;
+    }
 
     @NonNull
     @Override
@@ -48,17 +56,38 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
 
         private TextView textView1;
         private TextView textView2;
-
+        private Button button;
         ItemViewHolder(View itemView) {
             super(itemView);
 
             textView1 = itemView.findViewById(R.id.textView1);
             textView2 = itemView.findViewById(R.id.textView2);
+            button = itemView.findViewById(R.id.PHONEBUTTON);
+            button.setOnClickListener(new Button.OnClickListener() {
+                public void onClick(View v) {
+                    int pos = getAdapterPosition() ;
+                    if (pos != RecyclerView.NO_POSITION) {
+                        Log.d("RecyclerAdapter","good");
+                        Intent intent =new Intent(mContext,phonepopup.class);
+                        intent.putExtra("name", listData.get(pos).getName());
+                        intent.putExtra("number", listData.get(pos).getNumber());
+
+                        mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+
+                    }
+
+
+                }
+            });
+
         }
 
         void onBind(Data data) {
-            textView1.setText(data.getTitle());
-            textView2.setText(data.getContent());
+            textView1.setText(data.getName());
+            textView2.setText(data.getNumber());
+            button = itemView.findViewById(R.id.PHONEBUTTON);
+
         }
+
     }
 }
