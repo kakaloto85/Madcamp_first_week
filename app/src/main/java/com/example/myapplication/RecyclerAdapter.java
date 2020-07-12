@@ -73,10 +73,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
                         intent.putExtra("number", listData.get(pos).getNumber());
 
                         mContext.startActivity(intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
-
                     }
-
-
                 }
             });
 
@@ -86,7 +83,6 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ItemVi
             textView1.setText(data.getName());
             textView2.setText(data.getNumber());
             button = itemView.findViewById(R.id.PHONEBUTTON);
-
         }
 
     }

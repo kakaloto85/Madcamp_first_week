@@ -35,10 +35,6 @@ public class tab1 extends Fragment {
         ArrayList name =new ArrayList();
         ArrayList number = new ArrayList();
 
-        //연락처 permission 받아오기
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CONTACTS}, 100);
-        }
 
         //projection이 뭘까..?
         String [] arrProjection = {
