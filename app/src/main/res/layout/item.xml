@@ -5,7 +5,7 @@
     android:padding="8dp"
     android:gravity="center_vertical"
     android:layout_marginBottom="8dp"
-    android:background="@android:color/white">
+    android:background="#CCFFE4C4">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -38,11 +38,13 @@
                 android:textColor="@android:color/darker_gray"/>
         </LinearLayout>
 
-        <Button android:id="@+id/PHONEBUTTON"
-            android:layout_width="0dip"
+        <Button
+            android:id="@+id/PHONEBUTTON"
+            android:layout_width="9dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="편지 쓰기"/>
+            android:background="@drawable/buttonshape"
+            android:text="편지 쓰기" />
 
     </LinearLayout>
 

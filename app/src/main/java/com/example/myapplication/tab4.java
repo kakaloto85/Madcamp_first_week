@@ -53,7 +53,7 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
         Bitmap bm = BitmapFactory.decodeFile(imgpath, bfo);
         Bitmap resized = Bitmap.createScaledBitmap(bm, 410, 400, true);
         iv.setImageBitmap(resized);
-        container = (LinearLayout)findViewById(R.id.activity_tab4);
+        //container = (LinearLayout)findViewById(R.id.activity_tab4);
         send = (Button) findViewById(R.id.send);
         send.setOnClickListener(this);
     }
@@ -122,6 +122,7 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v){
         switch (v.getId()) {
             case R.id.send:
+                View container = getWindow().getDecorView();
                 container.buildDrawingCache();
                 Bitmap captureView = container.getDrawingCache();
                 sp = getSharedPreferences("DB",MODE_PRIVATE);

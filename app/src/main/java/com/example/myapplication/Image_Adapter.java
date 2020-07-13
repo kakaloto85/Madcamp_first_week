@@ -15,6 +15,8 @@ import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 import static android.content.Context.MODE_PRIVATE;
@@ -61,10 +63,11 @@ public class Image_Adapter extends BaseAdapter {
         }else{
             imageView = (ImageView) convertView;
         }
-        BitmapFactory.Options bo = new BitmapFactory.Options();
-        Bitmap bmp = BitmapFactory.decodeFile(thumbsDataList.get(position), bo);
-        Bitmap resized = Bitmap.createScaledBitmap(bmp, 340, 350, true);
-        imageView.setImageBitmap(resized);
+//        BitmapFactory.Options bo = new BitmapFactory.Options();
+//        Bitmap bmp = BitmapFactory.decodeFile(thumbsDataList.get(position), bo);
+//        Bitmap resized = Bitmap.createScaledBitmap(bmp, 340, 350, true);
+//        imageView.setImageBitmap(resized);
+        Glide.with(mContext).load(thumbsDataList.get(position)).into(imageView);
 
         return imageView;
     }
