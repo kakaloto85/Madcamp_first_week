@@ -2,10 +2,11 @@ package com.example.myapplication;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -14,49 +15,73 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 public class checkpermission extends Activity {
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults)
-    { //권한을 허용 했을 경우
-        Log.d("what","----------------------------");
-        if(requestCode == 1 || requestCode == 100){
-            int length = permissions.length;
-            for (int i = 0; i < length; i++) {
-                if (grantResults[i] == PackageManager.PERMISSION_GRANTED) {
-                    // 동의
+    private final int PERMISSIONS_ALL = 1000;
+    String[] PERMISSIONS = {
+            android.Manifest.permission.READ_CONTACTS,
+            android.Manifest.permission.READ_EXTERNAL_STORAGE,
+            android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
 
+    public boolean hasPermissions(Context context, String... permissions) {
+        if (context != null && permissions != null) {
+            for (String permission : permissions) {
+                if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+
+                    return false;
                 }
             }
-
         }
-        Intent intent = new Intent(getBaseContext(), MainActivity.class);
-        startActivity(intent);
-        finish();
+        Log.d("&&&&","!@#@!#@#####################################");
 
+        return true;
+    }
+    private void getPermission(){
 
+        ActivityCompat.requestPermissions(this,
+                PERMISSIONS,
+                1000);
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        if (Build.VERSION.SDK_INT >= 23) {
+
+            // requestPermission의 배열의 index가 아래 grantResults index와 매칭
+            // 퍼미션이 승인되면
+            for(int i = 0; i <3 ; i++) {
+                if (grantResults.length > 0 && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                    Log.d("permission agreed", "Permission: " + permissions[i] + "was " + grantResults[i]);
+
+                    // TODO : 퍼미션이 승인되는 경우에 대한 코드
+
+                }
+                // 퍼미션이 승인 거부되면
+                else {
+                    Log.d("Permission denied", "Permission denied");
+
+                    // TODO : 퍼미션이 거부되는 경우에 대한 코드
+                }
+            }
+        }
     }
 
-    public void checkSelfPermission() {
-        String temp1 = "";
 
-        //파일 읽기 권한 확인
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        { temp1 += Manifest.permission.READ_EXTERNAL_STORAGE + " "; }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)
-        { temp1 += Manifest.permission.WRITE_EXTERNAL_STORAGE + " "; }
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED)
-        { temp1+= Manifest.permission.READ_CONTACTS + " "; }
-
-
-        if (TextUtils.isEmpty(temp1) == false) {
-            // 권한 요청
-            ActivityCompat.requestPermissions(this, temp1.trim().split(" "),1);
-        }
-        else { // 모두 허용 상태
-            Toast.makeText(this, "권한을 모두 허용1", Toast.LENGTH_SHORT).show(); } }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        checkSelfPermission();
+        getPermission();
+        if(!hasPermissions(this, PERMISSIONS)){
+            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSIONS_ALL);
+        }
+        // 권한이 허용되어있다면 다음 화면 진행
+        else {
+            Intent intent = new Intent(getBaseContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
 
     }
+
 }
