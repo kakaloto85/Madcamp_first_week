@@ -36,7 +36,6 @@ public class checkpermission extends Activity {
 
     public void checkSelfPermission() {
         String temp1 = "";
-        String temp2 = "";
 
         //파일 읽기 권한 확인
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED)

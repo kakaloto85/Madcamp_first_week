@@ -28,31 +28,26 @@ public class MainActivity extends AppCompatActivity {
     private TabItem tab1,tab2,tab3;
     public PageAdapter pageradapter;
 
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //연락처 permission 받아오기
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_CONTACTS}, 100);
-        }
-
         setContentView(R.layout.activity_main);
-
+        //탭 레이아웃 생성
         tabLayout =(TabLayout) findViewById(R.id.tablayout);
+        //탭 생성
         tab1=(TabItem) findViewById(R.id.Tab1);
         tab2=(TabItem) findViewById(R.id.Tab2);
         tab3=(TabItem) findViewById(R.id.Tab3);
+
+        //뷰페이저 생성
         viewPager=findViewById(R.id.viewpager);
 
 
         pageradapter = new PageAdapter(getSupportFragmentManager(),tabLayout.getTabCount());
 
+
         viewPager.setAdapter(pageradapter);
+
         tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(viewPager));
         viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
     }

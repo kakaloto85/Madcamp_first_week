@@ -19,6 +19,7 @@ public class PageAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
+        //탭을
         switch (position) {
             case 0:
 
