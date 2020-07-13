@@ -13,6 +13,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
@@ -62,16 +63,23 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
             case R.id.send:
                 container.buildDrawingCache();
                 Bitmap captureView = container.getDrawingCache();
-                String adress = Environment.getExternalStorageDirectory().toString()+"/capture.jpeg";
+                sp = getSharedPreferences("DB",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                String adress = MediaStore.Images.Media.insertImage(getContentResolver(), captureView,"title", null);
+                        //Environment.getExternalStorageDirectory().toString()+"/capture.jpeg";
+                Log.d("@@@@@@@@@@@@@@@@", adress); //   /storage/emulated/0/capture.jpeg
+                editor.putString("uri", adress);
+                editor.commit();
                 //비트맵 저장
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 captureView.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
                 byte[] b = baos.toByteArray();
                 String encoded = Base64.encodeToString(b, Base64.DEFAULT);
-                sp = getSharedPreferences("DB",MODE_PRIVATE);
-                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("uri", adress);
+                editor.commit();
                 editor.putString("screenshot", encoded);
                 editor.commit();
+                //send uri adress
                 //screenshot uri
                 FileOutputStream fos;
                 try {
@@ -82,7 +90,6 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
                     e.printStackTrace();
                 }
                 Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_LONG).show();
-                Uri uri = Uri.fromFile(new File(adress));
                 Intent i = new Intent(mContext, MainActivity.class);
                 //putextras to mainactivity??
                 startActivity(i);

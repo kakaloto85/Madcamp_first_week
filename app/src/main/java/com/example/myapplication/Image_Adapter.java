@@ -77,6 +77,7 @@ public class Image_Adapter extends BaseAdapter {
         editor.putString("imgPath", imgPath);
         editor.commit();
         i.putExtra("filename", imgPath);
+        Log.d("###############", imgPath); //    /storage/emulated/0/DCIM/100PINT/핀/f26901252678a142ff4d0c15fddecbc8.jpg
         mContext.startActivity(i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
     }
 
