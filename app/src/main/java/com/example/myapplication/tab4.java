@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -28,6 +29,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class tab4 extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "MainActivity";
@@ -56,6 +58,65 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
         send.setOnClickListener(this);
     }
 
+    public String saveToInternalStorage(Bitmap bitmapImage){
+
+//        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+//        // path to /data/data/yourapp/app_data/imageDir
+//        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+//        // Create imageDir
+
+        File directory = this.getFilesDir();
+
+        File mypath=new File(directory,"profile.jpg");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
+    }
+
+    private void saveBitmapToJpeg(Bitmap bitmap, String name) {
+
+        //내부저장소 캐시 경로를 받아옵니다.
+        File storage = getCacheDir();
+
+        //저장할 파일 이름
+        String fileName = name + ".jpg";
+
+        //storage 에 파일 인스턴스를 생성합니다.
+        File tempFile = new File(storage, fileName);
+
+        try {
+
+            // 자동으로 빈 파일을 생성합니다.
+            tempFile.createNewFile();
+
+            // 파일을 쓸 수 있는 스트림을 준비합니다.
+            FileOutputStream out = new FileOutputStream(tempFile);
+
+            // compress 함수를 사용해 스트림에 비트맵을 저장합니다.
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+
+            // 스트림 사용후 닫아줍니다.
+            out.close();
+
+        } catch (FileNotFoundException e) {
+            Log.e("MyTag","FileNotFoundException : " + e.getMessage());
+        } catch (IOException e) {
+            Log.e("MyTag","IOException : " + e.getMessage());
+        }
+    }
+
 
     @Override
     public void onClick(View v){
@@ -65,34 +126,25 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
                 Bitmap captureView = container.getDrawingCache();
                 sp = getSharedPreferences("DB",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
-                String adress = MediaStore.Images.Media.insertImage(getContentResolver(), captureView,"title", null);
-                        //Environment.getExternalStorageDirectory().toString()+"/capture.jpeg";
-                Log.d("@@@@@@@@@@@@@@@@", adress); //   /storage/emulated/0/capture.jpeg
-                editor.putString("uri", adress);
-                editor.commit();
+                //이미지 내부 디렉토리 저장하기
+                String address = MediaStore.Images.Media.insertImage(getContentResolver(),captureView,"title", null);
+                //saveBitmapToJpeg(captureView, "cacheimg");
+                //data/user/0/com.example.myapplication/app_imageDir
+                Log.d("$$$$$$",address);
+
                 //비트맵 저장
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 captureView.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
                 byte[] b = baos.toByteArray();
                 String encoded = Base64.encodeToString(b, Base64.DEFAULT);
-                editor.putString("uri", adress);
-                editor.commit();
                 editor.putString("screenshot", encoded);
                 editor.commit();
-                //send uri adress
-                //screenshot uri
-                FileOutputStream fos;
-                try {
-                    fos = new FileOutputStream(adress);
-                    captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
-                }
+                editor.putString("screenshot_internal_path", address);
+                editor.commit();
                 Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(mContext, MainActivity.class);
-                //putextras to mainactivity??
                 startActivity(i);
+
         }
 
     }
