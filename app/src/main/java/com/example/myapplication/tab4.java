@@ -10,8 +10,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -20,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -51,22 +55,6 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
         send.setOnClickListener(this);
     }
 
-    public Fragment calltabs(){
-//        sp = getSharedPreferences("DB", MODE_PRIVATE);
-//        String finalimg = sp.getString("screenshot", "");
-//        if(finalimg != null){
-//            BitmapFactory.Options bfo = new BitmapFactory.Options();
-//            ImageView iv = (ImageView) findViewById(R.id.letter);
-//            Bitmap bm = BitmapFactory.decodeFile(finalimg, bfo);
-//            Bitmap resized = Bitmap.createScaledBitmap(bm, 400, 677, true);
-//            iv.setImageBitmap(resized);
-//        }else{
-//
-//        }
-
-        tab3 f = new tab3();
-        return f;
-    }
 
     @Override
     public void onClick(View v){
@@ -74,24 +62,31 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
             case R.id.send:
                 container.buildDrawingCache();
                 Bitmap captureView = container.getDrawingCache();
+                String adress = Environment.getExternalStorageDirectory().toString()+"/capture.jpeg";
+                //비트맵 저장
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                captureView.compress(Bitmap.CompressFormat.PNG, 100, baos); //bm is the bitmap object
+                byte[] b = baos.toByteArray();
+                String encoded = Base64.encodeToString(b, Base64.DEFAULT);
+                sp = getSharedPreferences("DB",MODE_PRIVATE);
+                SharedPreferences.Editor editor = sp.edit();
+                editor.putString("screenshot", encoded);
+                editor.commit();
+                //screenshot uri
                 FileOutputStream fos;
                 try {
-                    sp = getSharedPreferences("DB",MODE_PRIVATE);
-                    String adress = Environment.getExternalStorageDirectory().toString()+"/capture.jpeg";
-                    SharedPreferences.Editor editor = sp.edit();
-                    editor.putString("screenshot", adress);
-                    editor.commit();
                     fos = new FileOutputStream(adress);
                     captureView.compress(Bitmap.CompressFormat.JPEG, 100, fos);
-//                    Intent i = new Intent(mContext, MainActivity.class);
-//                    i.putExtra("letterfile", adress);
-//                    startActivity(i);
+
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
                 Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_LONG).show();
+                Uri uri = Uri.fromFile(new File(adress));
+                Intent i = new Intent(mContext, MainActivity.class);
+                //putextras to mainactivity??
+                startActivity(i);
         }
-        Intent i = new Intent(mContext, MainActivity.class);
-        startActivity(i);
+
     }
 }

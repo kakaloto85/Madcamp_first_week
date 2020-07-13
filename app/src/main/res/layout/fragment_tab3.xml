@@ -8,7 +8,7 @@
     <ImageView
         android:id="@+id/letter"
         android:layout_width="400dp"
-        android:layout_height="677dp"
+        android:layout_height="600dp"
         android:padding="3px"
         android:layout_gravity = "top"
         />
@@ -23,6 +23,12 @@
             android:layout_width="0dip"
             android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="call4"/>
+            android:text="write letter"/>
+        <Button android:id="@+id/calltab5"
+            android:layout_width="0dip"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:text="send"/>
+
     </LinearLayout>
 </FrameLayout>
