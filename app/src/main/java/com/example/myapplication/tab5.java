@@ -1,45 +1,32 @@
+
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.app.FragmentManager;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class tab4 extends AppCompatActivity implements View.OnClickListener {
+public class tab5 extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "MainActivity";
     private Button send;
     private LinearLayout container;
@@ -53,9 +40,8 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab4);
+        setContentView(R.layout.activity_tab5);
         mContext = this;
-        Log.d("__________________", "tab4");
 
         //editor cursor 없애기
 //        EditText et = (EditText)findViewById(R.id.inputText);
@@ -84,9 +70,7 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
 //        Bitmap bm = BitmapFactory.decodeFile(imgpath, bfo);
 //        Bitmap resized = Bitmap.createScaledBitmap(bm, 410, 400, true);
 //        iv.setImageBitmap(resized);
-        Log.d("&&&&&&&&&&&&&&&&&&&&&", "tab4");
         Glide.with(mContext).load(imgpath).into(iv);
-        Log.d("&@@@@@@@@@@@@@@@@@@@@@@", "tab4");
         new Handler().postDelayed(new Runnable()
         {
             @Override
@@ -95,23 +79,77 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
                 Log.d("ITPANGPANG","img("+200 +" x "+300+")");
             }
         }, 2000);
-        Log.d("&################@", "tab4");
         //container = (LinearLayout)findViewById(R.id.activity_tab4);
-        Button send1 = (Button) findViewById(R.id.send);
-        send1.setOnClickListener(this);
-        Log.d("&##%%%%%%%%%#####@", "tab4");
-        Button layout1 = (Button) findViewById(R.id.btn_layout);
-        layout1.setOnClickListener(this);
-        Log.d("&##%^^^^^^^#####@", "tab4");
-
+        Button send = (Button) findViewById(R.id.send2);
+        send.setOnClickListener(this);
+        Button layout = (Button) findViewById(R.id.btn_layout2);
+        layout.setOnClickListener(this);
     }
 
+    public String saveToInternalStorage(Bitmap bitmapImage){
+
+//        ContextWrapper cw = new ContextWrapper(getApplicationContext());
+//        // path to /data/data/yourapp/app_data/imageDir
+//        File directory = cw.getDir("imageDir", Context.MODE_PRIVATE);
+//        // Create imageDir
+
+        File directory = this.getFilesDir();
+
+        File mypath=new File(directory,"profile.jpg");
+        FileOutputStream fos = null;
+        try {
+            fos = new FileOutputStream(mypath);
+            // Use the compress method on the BitMap object to write image to the OutputStream
+            bitmapImage.compress(Bitmap.CompressFormat.PNG, 100, fos);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return directory.getAbsolutePath();
+    }
+
+    private void saveBitmapToJpeg(Bitmap bitmap, String name) {
+
+        //내부저장소 캐시 경로를 받아옵니다.
+        File storage = getCacheDir();
+
+        //저장할 파일 이름
+        String fileName = name + ".jpg";
+
+        //storage 에 파일 인스턴스를 생성합니다.
+        File tempFile = new File(storage, fileName);
+
+        try {
+
+            // 자동으로 빈 파일을 생성합니다.
+            tempFile.createNewFile();
+
+            // 파일을 쓸 수 있는 스트림을 준비합니다.
+            FileOutputStream out = new FileOutputStream(tempFile);
+
+            // compress 함수를 사용해 스트림에 비트맵을 저장합니다.
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, out);
+
+            // 스트림 사용후 닫아줍니다.
+            out.close();
+
+        } catch (FileNotFoundException e) {
+            Log.e("MyTag","FileNotFoundException : " + e.getMessage());
+        } catch (IOException e) {
+            Log.e("MyTag","IOException : " + e.getMessage());
+        }
+    }
 
 
     @Override
     public void onClick(View v){
         switch (v.getId()) {
-            case R.id.send:
+            case R.id.send2:
                 View container = getWindow().getDecorView();
                 container.buildDrawingCache();
                 Bitmap cvt = container.getDrawingCache();
@@ -136,18 +174,15 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
                 editor.putString("screenshot_internal_path", address);
                 editor.commit();
                 Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_LONG).show();
-                new tab3();
                 finish();
                 break;
-
-            case R.id.btn_layout:
-                Intent t = new Intent(mContext, tab5.class);
-                Toast.makeText(mContext.getApplicationContext(), "layout Suga===", Toast.LENGTH_LONG).show();
+            case R.id.btn_layout2:
+                Intent t = new Intent(mContext, tab4.class);
+                Toast.makeText(mContext.getApplicationContext(), "layout Suga", Toast.LENGTH_LONG).show();
                 startActivity(t);
                 finish();
+
                 break;
-
-
 
         }
 

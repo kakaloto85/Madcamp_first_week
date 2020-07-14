@@ -18,13 +18,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 
-public class ImagePopup extends AppCompatActivity implements View.OnClickListener {
+public class ImagePopup extends Activity implements View.OnClickListener {
     private Context mContext = null;
     private final int imgWidth = 300;
     private final int imgHeight = 372;
@@ -32,6 +33,7 @@ public class ImagePopup extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.fragment_image_popup);
         mContext = this;
 

@@ -2,9 +2,10 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/tab4"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/old"
+    >
 
     <ImageView
         android:id="@+id/tab4_image"
@@ -110,7 +111,7 @@
         android:layout_marginLeft="50dp" />
 
 
-    <Button android:id="@+id/btn_layout"
+    <Button android:id="@+id/btn_layout2"
         android:layout_width="150dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
@@ -119,42 +120,16 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/calltab4"
         android:background="@drawable/buttonshape"
-        android:text="layout2"/>
+        android:text="layout1"/>
 
-    <Button android:id="@+id/send"
+    <Button android:id="@+id/send2"
         android:layout_width="0dip"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/btn_layout"
+        app:layout_constraintLeft_toRightOf="@+id/btn_layout2"
         app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/buttonshape"
         android:text="capture"/>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--    <Button-->
-<!--        android:id="@+id/send"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_weight="0"-->
-<!--        android:layout_gravity="bottom"-->
-<!--        app:layout_constraintBottom_toBottomOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        android:background="@drawable/buttonshape"-->
-<!--        android:text="capture" />-->
-
-<!--<EditText-->
-<!--android:id="@+id/ToText"-->
-<!--android:maxLength="10"-->
-<!--app:layout_constraintTop_toBottomOf="@+id/guideline1"-->
-<!--app:layout_constraintRight_toLeftOf="@+id/text1"-->
-<!--android:layout_width="match_parent"-->
-<!--android:layout_height="20sp"-->
-<!--android:layout_weight="1"-->
-<!--android:gravity="top"-->
-<!--android:textSize="20sp"-->
-<!--android:textIsSelectable="false" />-->

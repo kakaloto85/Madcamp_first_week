@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme"
+        >
         <activity android:name=".checkpermission">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -37,14 +38,22 @@
         </provider>
 
         <activity android:name=".tab4" />
+        <activity android:name=".tab5" />
         <activity
             android:name=".ImagePopup"
-            android:label="imagepop" />
+            android:label="imagepop"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+
         <activity android:name=".lodingclass"/>
         <activity android:name=".MainActivity" />
         <activity
             android:name=".phonepopup"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+        <activity
+            android:name=".letter_popup"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />
+
+
     </application>
 
 </manifest>

@@ -23,6 +23,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -47,11 +48,34 @@ public class tab3 extends Fragment implements View.OnClickListener {
         super.onCreate(savedInstanceState);
     }
 
+
+
+    class MyListener implements View.OnClickListener {
+
+
+        @Override
+        public void onClick(View v) {
+            Log.d("RecyclerAdapter","good");
+            Intent intent =new Intent(getActivity(),letter_popup.class);
+
+            getActivity().startActivity(intent);
+
+        } // end onClick
+
+
+    } // end MyListener()
+
+
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab3, container, false);
+        Button bts2 = (Button) view.findViewById(R.id.btn_layout3);
+        bts2.setOnClickListener(this);
+        Log.d("&*&**&*&*&","((((((((((((((((((((((((((((((((((((((((((((((((((((((");
         sp = getActivity().getSharedPreferences("DB", MODE_PRIVATE);
         String encoded = sp.getString("screenshot", "");
         Log.d("&&&&&&",encoded);
@@ -61,6 +85,16 @@ public class tab3 extends Fragment implements View.OnClickListener {
             b = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
             Bitmap resized = Bitmap.createScaledBitmap(b, 200, 300, true);
             image.setImageBitmap(resized);
+            image.setOnClickListener(new MyListener());
+
+
+
+
+
+
+
+
+
         }
 //        Glide.with(mContext).load(imageAsBytes).into(image);
 //        new Handler().postDelayed(new Runnable()
@@ -72,45 +106,17 @@ public class tab3 extends Fragment implements View.OnClickListener {
 //            }
 //        }, 2000);
 
-        Button btn = (Button) view.findViewById(R.id.calltab4);
-        btn.setOnClickListener(this);
-        Button bts = (Button) view.findViewById(R.id.calltab5);
-        bts.setOnClickListener(this);
         return view;//B@23b75c7 --> B@69a483d
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.calltab4:
-                Intent intent = new Intent(getActivity(), tab4.class);
-                startActivity(intent);
-                break;
-            case R.id.calltab5:
-                String picture_exist=sp.getString("imgPath","");
-                if(picture_exist!="") {
-                    String pathofBmp = sp.getString("screenshot_internal_path", "");
-                    Log.d("@sdk----------------", pathofBmp); //  /storage/emulated/0/capture.jpeg
-                    Uri bmpUri = Uri.parse(pathofBmp);
-                    Log.d("@uri----------------", bmpUri.toString()); //   /storage/emulated/0/capture.jpeg
-                    if (pathofBmp != "") {
-
-                        sendMMS(bmpUri);
-                        SharedPreferences.Editor editor = sp.edit();
-                        editor.remove("screenshot");
-                        editor.remove("screenshot_internal_path");
-                        editor.remove("imgPath");
-                        editor.commit();
-                    } else {
-                        Toast.makeText(getContext(), "편지를 써주세요!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-                else{
-                    Toast.makeText(getContext(), "사진을 선택해주세요!", Toast.LENGTH_SHORT).show();
-
-                }
-
-
+            case R.id.btn_layout3:
+                Intent i = new Intent(getActivity(), tab4.class);
+                Toast.makeText(getActivity().getApplicationContext(), "layout Suga", Toast.LENGTH_LONG).show();
+                startActivity(i);
+                Log.d("&*&**&*&*&","789999999999999999999999999999999999999999999999999999999999999999999999999999");
 
                 break;
         }
