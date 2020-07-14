@@ -111,7 +111,7 @@
 
 
     <Button android:id="@+id/btn_layout"
-        android:layout_width="150dp"
+        android:layout_width="210dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
@@ -119,18 +119,24 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toLeftOf="@+id/calltab4"
         android:background="@drawable/buttonshape"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.5"
         android:text="layout2"/>
 
-    <Button android:id="@+id/send"
-        android:layout_width="0dip"
-        android:layout_weight="1"
+
+    <Button
+        android:id="@+id/send"
+        app:layout_constraintWidth_default="percent"
+        app:layout_constraintWidth_percent="0.5"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/btn_layout"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_weight="1"
         android:background="@drawable/buttonshape"
-        android:text="capture"/>
+        android:text="capture"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        />
 
 
 

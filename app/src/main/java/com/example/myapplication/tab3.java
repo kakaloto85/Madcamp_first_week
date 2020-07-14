@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -55,11 +56,16 @@ public class tab3 extends Fragment implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
-            Log.d("RecyclerAdapter","good");
-            Intent intent =new Intent(getActivity(),letter_popup.class);
+            String encoded = sp.getString("screenshot", "");
 
-            getActivity().startActivity(intent);
+            if (encoded !=""& let==0) {
+                Intent intent = new Intent(getActivity(), letter_popup.class);
 
+                getActivity().startActivity(intent);
+            }
+            else{
+                refresh();
+            }
         } // end onClick
 
 
@@ -67,7 +73,7 @@ public class tab3 extends Fragment implements View.OnClickListener {
 
 
 
-
+    int let = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,24 +85,19 @@ public class tab3 extends Fragment implements View.OnClickListener {
         sp = getActivity().getSharedPreferences("DB", MODE_PRIVATE);
         String encoded = sp.getString("screenshot", "");
         Log.d("&&&&&&",encoded);
-        while(encoded=="") {
-
-        }
         if (encoded !="") {
             byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
             ImageView image = (ImageView) view.findViewById(R.id.letter);
             b = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-            Bitmap resized = Bitmap.createScaledBitmap(b, 200, 300, true);
+            Bitmap resized = Bitmap.createScaledBitmap(b, 300, 450, true);
             image.setImageBitmap(resized);
             image.setOnClickListener(new MyListener());
-
-
-
-
-
-
-
-
+            let=0;
+        }
+        else{
+            ImageView image1 = (ImageView) view.findViewById(R.id.letter);
+            image1.setOnClickListener(new MyListener());
+            let+=1;
 
         }
 //        Glide.with(mContext).load(imageAsBytes).into(image);
@@ -119,36 +120,13 @@ public class tab3 extends Fragment implements View.OnClickListener {
                 Intent i = new Intent(getActivity(), tab4.class);
                 Toast.makeText(getActivity().getApplicationContext(), "layout Suga", Toast.LENGTH_LONG).show();
                 startActivity(i);
-                Log.d("&*&**&*&*&","789999999999999999999999999999999999999999999999999999999999999999999999999999");
 
                 break;
         }
     }
-
-    public void sendMMS(Uri uri) {
-        SharedPreferences sp = getActivity().getSharedPreferences("DB", MODE_PRIVATE);
-        String number = sp.getString("number", "");
-        String name = sp.getString("name", "");
-        if (number != "") {
-            try {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.putExtra("address", number);
-                intent.putExtra("subject", "MMS Test");
-                intent.setType("image/jpg");
-                intent.putExtra(Intent.EXTRA_STREAM, uri);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//            startActivityForResult(Intent.createChooser(intent, "send"), 0);
-//        }
-//        catch (ActivityNotFoundException e) {
-//            Toast.makeText(getActivity().getApplicationContext(), "no sns", Toast.LENGTH_SHORT).show();
-                startActivity(Intent.createChooser(intent, "send"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    else{
-        Toast.makeText(getContext(),"편지 받을 사람을 알려주세요!",Toast.LENGTH_SHORT).show();
-        return;
+    private void refresh(){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.detach(this).attach(this).commit();
     }
-}}
+
+}
