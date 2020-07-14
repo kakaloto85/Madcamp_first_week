@@ -56,11 +56,16 @@ public class tab3 extends Fragment implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
-            Log.d("RecyclerAdapter","good");
-            Intent intent =new Intent(getActivity(),letter_popup.class);
+            String encoded = sp.getString("screenshot", "");
 
-            getActivity().startActivity(intent);
+            if (encoded !=""& let==0) {
+                Intent intent = new Intent(getActivity(), letter_popup.class);
 
+                getActivity().startActivity(intent);
+            }
+            else{
+                refresh();
+            }
         } // end onClick
 
 
@@ -68,7 +73,7 @@ public class tab3 extends Fragment implements View.OnClickListener {
 
 
 
-
+ int let = 0;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -87,14 +92,12 @@ public class tab3 extends Fragment implements View.OnClickListener {
             Bitmap resized = Bitmap.createScaledBitmap(b, 200, 300, true);
             image.setImageBitmap(resized);
             image.setOnClickListener(new MyListener());
-
-
-
-
-
-
-
-
+            let=0;
+        }
+        else{
+            ImageView image1 = (ImageView) view.findViewById(R.id.letter);
+            image1.setOnClickListener(new MyListener());
+            let+=1;
 
         }
 //        Glide.with(mContext).load(imageAsBytes).into(image);
@@ -117,8 +120,6 @@ public class tab3 extends Fragment implements View.OnClickListener {
                 Intent i = new Intent(getActivity(), tab4.class);
                 Toast.makeText(getActivity().getApplicationContext(), "layout Suga", Toast.LENGTH_LONG).show();
                 startActivity(i);
-
-                refresh();
 
                 break;
         }
