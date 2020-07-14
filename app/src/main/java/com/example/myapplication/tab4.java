@@ -187,6 +187,8 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
                 Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(mContext, MainActivity.class);
                 startActivity(i);
+//            case R.id.send:
+
 
         }
 

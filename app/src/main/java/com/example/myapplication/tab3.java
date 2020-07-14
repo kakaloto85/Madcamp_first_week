@@ -54,11 +54,14 @@ public class tab3 extends Fragment implements View.OnClickListener {
         View view = inflater.inflate(R.layout.fragment_tab3, container, false);
         sp = getActivity().getSharedPreferences("DB", MODE_PRIVATE);
         String encoded = sp.getString("screenshot", "");
-        byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
-        ImageView image = (ImageView) view.findViewById(R.id.letter);
-        b = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-        Bitmap resized = Bitmap.createScaledBitmap(b, 200, 300, true);
-        image.setImageBitmap(resized);
+        Log.d("&&&&&&",encoded);
+        if (encoded !="") {
+            byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
+            ImageView image = (ImageView) view.findViewById(R.id.letter);
+            b = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            Bitmap resized = Bitmap.createScaledBitmap(b, 200, 300, true);
+            image.setImageBitmap(resized);
+        }
 //        Glide.with(mContext).load(imageAsBytes).into(image);
 //        new Handler().postDelayed(new Runnable()
 //        {
@@ -84,12 +87,29 @@ public class tab3 extends Fragment implements View.OnClickListener {
                 startActivity(intent);
                 break;
             case R.id.calltab5:
+                String picture_exist=sp.getString("imgPath","");
+                if(picture_exist!="") {
+                    String pathofBmp = sp.getString("screenshot_internal_path", "");
+                    Log.d("@sdk----------------", pathofBmp); //  /storage/emulated/0/capture.jpeg
+                    Uri bmpUri = Uri.parse(pathofBmp);
+                    Log.d("@uri----------------", bmpUri.toString()); //   /storage/emulated/0/capture.jpeg
+                    if (pathofBmp != "") {
 
-                String pathofBmp = sp.getString("screenshot_internal_path", "");
-                Log.d("@sdk----------------", pathofBmp); //  /storage/emulated/0/capture.jpeg
-                Uri bmpUri = Uri.parse(pathofBmp);
-                Log.d("@uri----------------", bmpUri.toString()); //   /storage/emulated/0/capture.jpeg
-                sendMMS(bmpUri);
+                        sendMMS(bmpUri);
+                        SharedPreferences.Editor editor = sp.edit();
+                        editor.remove("screenshot");
+                        editor.remove("screenshot_internal_path");
+                        editor.remove("imgPath");
+                        editor.commit();
+                    } else {
+                        Toast.makeText(getContext(), "편지를 써주세요!", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    Toast.makeText(getContext(), "사진을 선택해주세요!", Toast.LENGTH_SHORT).show();
+
+                }
+
 
 
                 break;
@@ -100,20 +120,26 @@ public class tab3 extends Fragment implements View.OnClickListener {
         SharedPreferences sp = getActivity().getSharedPreferences("DB", MODE_PRIVATE);
         String number = sp.getString("number", "");
         String name = sp.getString("name", "");
-        try {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.putExtra("address", number);
-            intent.putExtra("subject", "MMS Test");
-            intent.setType("image/jpg");
-            intent.putExtra(Intent.EXTRA_STREAM, uri);
-            intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        if (number != "") {
+            try {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.putExtra("address", number);
+                intent.putExtra("subject", "MMS Test");
+                intent.setType("image/jpg");
+                intent.putExtra(Intent.EXTRA_STREAM, uri);
+                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
 //            startActivityForResult(Intent.createChooser(intent, "send"), 0);
 //        }
 //        catch (ActivityNotFoundException e) {
 //            Toast.makeText(getActivity().getApplicationContext(), "no sns", Toast.LENGTH_SHORT).show();
-            startActivity(Intent.createChooser(intent, "send"));
-        }catch (Exception e){
-            e.printStackTrace();
+                startActivity(Intent.createChooser(intent, "send"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+
+    else{
+        Toast.makeText(getContext(),"편지 받을 사람을 알려주세요!",Toast.LENGTH_SHORT).show();
+        return;
     }
-}
+}}

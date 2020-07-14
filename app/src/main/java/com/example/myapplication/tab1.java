@@ -1,6 +1,7 @@
 package com.example.myapplication;
 import android.Manifest;
 
+import android.content.ContentProviderOperation;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -19,6 +20,12 @@ import java.util.ArrayList;
 public class tab1 extends Fragment {
     //RECYCLER ADAPTER를 불러옴
     private RecyclerAdapter adapter;
+//    public void mOnContactAdd(View v){
+//        if(v.getId()!=R.id.btnContactAdd){ return; }
+//        adapter.addItem(data);
+//
+//    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -35,10 +42,6 @@ public class tab1 extends Fragment {
         ArrayList name =new ArrayList();
         ArrayList number = new ArrayList();
 
-        //연락처 permission 받아오기
-        if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_CONTACTS) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_CONTACTS}, 100);
-        }
 
         //projection이 뭘까..?
         String [] arrProjection = {

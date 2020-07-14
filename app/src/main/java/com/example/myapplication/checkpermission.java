@@ -11,21 +11,21 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-public class checkpermission extends Activity {
+public class checkpermission extends AppCompatActivity {
     private final int PERMISSIONS_ALL = 1000;
     String[] PERMISSIONS = {
             android.Manifest.permission.READ_CONTACTS,
             android.Manifest.permission.READ_EXTERNAL_STORAGE,
             android.Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
-
     public boolean hasPermissions(Context context, String... permissions) {
         if (context != null && permissions != null) {
             for (String permission : permissions) {
                 if (ActivityCompat.checkSelfPermission(context, permission) != PackageManager.PERMISSION_GRANTED) {
+                    Log.d("&&&&","!@#@!#@#####################################");
 
                     return false;
                 }
@@ -52,7 +52,6 @@ public class checkpermission extends Activity {
             for(int i = 0; i <3 ; i++) {
                 if (grantResults.length > 0 && grantResults[i] == PackageManager.PERMISSION_GRANTED) {
                     Log.d("permission agreed", "Permission: " + permissions[i] + "was " + grantResults[i]);
-
                     // TODO : 퍼미션이 승인되는 경우에 대한 코드
 
                 }
@@ -62,7 +61,20 @@ public class checkpermission extends Activity {
 
                     // TODO : 퍼미션이 거부되는 경우에 대한 코드
                 }
+
             }
+            if (!hasPermissions(this, PERMISSIONS)) {
+                finish();
+
+            }
+            // 권한이 허용되어있다면 다음 화면 진행
+            else {
+                Intent intent = new Intent(getBaseContext(), lodingclass.class);
+                startActivity(intent);
+                finish();
+            }
+
+
         }
     }
 
@@ -70,17 +82,13 @@ public class checkpermission extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //확인요청
         super.onCreate(savedInstanceState);
+        //확인받기
+        //this
         getPermission();
-        if(!hasPermissions(this, PERMISSIONS)){
-            ActivityCompat.requestPermissions(this, PERMISSIONS, PERMISSIONS_ALL);
-        }
-        // 권한이 허용되어있다면 다음 화면 진행
-        else {
-            Intent intent = new Intent(getBaseContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
+
+
 
     }
 

@@ -40,15 +40,6 @@
         <activity
             android:name=".ImagePopup"
             android:label="imagepop" />
-        <activity
-            android:name=".tab5"
-            android:label="상세보기">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         <activity android:name=".lodingclass"/>
         <activity android:name=".MainActivity" />
         <activity
