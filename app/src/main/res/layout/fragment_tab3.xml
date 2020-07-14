@@ -1,34 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/frag3"
-    >
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
         android:id="@+id/letter"
-        android:layout_width="400dp"
-        android:layout_height="600dp"
+        android:layout_width="200dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toTopOf="@+id/calltab5"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
         android:padding="3px"
-        android:layout_gravity = "top"
         />
-    <LinearLayout
-        android:id="@+id/tab3_btn"
-        android:layout_width="fill_parent"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline1_tab3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="650dp" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline2_tab3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="400dp" />
+
+    <Button android:id="@+id/calltab4"
+        android:layout_width="0dip"
+        android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="#ffccccff"
-        >
-        <Button android:id="@+id/calltab4"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="write letter"/>
-        <Button android:id="@+id/calltab5"
-            android:layout_width="0dip"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:text="send"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/calltab5"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:background="@drawable/buttonshape"
+        android:text="write letter"/>
+    <Button android:id="@+id/calltab5"
+        android:layout_width="0dip"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/calltab4"
+        app:layout_constraintRight_toRightOf="parent"
+        android:background="@drawable/buttonshape"
+        android:text="send"/>
 
-    </LinearLayout>
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
 
+import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
@@ -23,6 +24,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.bumptech.glide.Glide;
 
 import java.io.File;
 
@@ -54,7 +57,17 @@ public class tab3 extends Fragment implements View.OnClickListener {
         byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
         ImageView image = (ImageView) view.findViewById(R.id.letter);
         b = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-        image.setImageBitmap(b);
+        Bitmap resized = Bitmap.createScaledBitmap(b, 200, 300, true);
+        image.setImageBitmap(resized);
+//        Glide.with(mContext).load(imageAsBytes).into(image);
+//        new Handler().postDelayed(new Runnable()
+//        {
+//            @Override
+//            public void run()
+//            {
+//                Log.d("ITPANGPANG","img("+400 +" x "+650+")");
+//            }
+//        }, 2000);
 
         Button btn = (Button) view.findViewById(R.id.calltab4);
         btn.setOnClickListener(this);

@@ -37,11 +37,9 @@
         </provider>
 
         <activity android:name=".tab4" />
-        <activity android:name=".lodingclass"/>
-        <activity android:name=".MainActivity" />
         <activity
             android:name=".ImagePopup"
-            android:label="상세보기" />
+            android:label="imagepop" />
         <activity
             android:name=".tab5"
             android:label="상세보기">
@@ -51,6 +49,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".lodingclass"/>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".phonepopup"
             android:theme="@android:style/Theme.DeviceDefault.Light.Dialog" />

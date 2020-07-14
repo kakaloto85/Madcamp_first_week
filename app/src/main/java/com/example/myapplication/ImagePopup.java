@@ -21,11 +21,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
 
 public class ImagePopup extends AppCompatActivity implements View.OnClickListener {
     private Context mContext = null;
-    private final int imgWidth = 320;
+    private final int imgWidth = 300;
     private final int imgHeight = 372;
 
     @Override
@@ -40,11 +41,14 @@ public class ImagePopup extends AppCompatActivity implements View.OnClickListene
         String imgPath = extras.getString("filename");
 
         /** 완성된 이미지 보여주기  */
-        BitmapFactory.Options bfo = new BitmapFactory.Options();
+//        BitmapFactory.Options bfo = new BitmapFactory.Options();
         ImageView iv = (ImageView) findViewById(R.id.imageView);
-        Bitmap bm = BitmapFactory.decodeFile(imgPath, bfo);
-        Bitmap resized = Bitmap.createScaledBitmap(bm, imgWidth, imgHeight, true);
-        iv.setImageBitmap(resized);
+//        Bitmap bm = BitmapFactory.decodeFile(imgPath, bfo);
+//        Bitmap resized = Bitmap.createScaledBitmap(bm, imgWidth, imgHeight, true);
+//        iv.setScaleType(ImageView.ScaleType.CENTER);
+//        iv.setImageBitmap(bm); //bm -> resized\
+        Glide.with(mContext).load(imgPath).into(iv);
+
 
         /** 리스트로 가기 버튼*/
         Button btn = (Button) findViewById(R.id.btn_back);
