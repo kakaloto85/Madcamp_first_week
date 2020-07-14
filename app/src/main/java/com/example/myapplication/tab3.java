@@ -79,6 +79,9 @@ public class tab3 extends Fragment implements View.OnClickListener {
         sp = getActivity().getSharedPreferences("DB", MODE_PRIVATE);
         String encoded = sp.getString("screenshot", "");
         Log.d("&&&&&&",encoded);
+        while(encoded=="") {
+
+        }
         if (encoded !="") {
             byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
             ImageView image = (ImageView) view.findViewById(R.id.letter);
