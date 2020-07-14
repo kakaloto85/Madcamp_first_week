@@ -79,48 +79,39 @@ public class tab3 extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_tab3, container, false);
-        Button bts2 = (Button) view.findViewById(R.id.btn_layout3);
-        bts2.setOnClickListener(this);
-        Log.d("&*&**&*&*&","((((((((((((((((((((((((((((((((((((((((((((((((((((((");
-        sp = getActivity().getSharedPreferences("DB", MODE_PRIVATE);
-        String encoded = sp.getString("screenshot", "");
-        Log.d("&&&&&&",encoded);
-        if (encoded !="") {
-            byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
-            ImageView image = (ImageView) view.findViewById(R.id.letter);
-            b = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-            Bitmap resized = Bitmap.createScaledBitmap(b, 300, 450, true);
-            image.setImageBitmap(resized);
-            image.setOnClickListener(new MyListener());
-            let=0;
-        }
-        else{
-            ImageView image1 = (ImageView) view.findViewById(R.id.letter);
-            image1.setOnClickListener(new MyListener());
-            let+=1;
+//        sp = getActivity().getSharedPreferences("DB", MODE_PRIVATE);
+//        String encoded = sp.getString("screenshot", "");
+//        byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
+//        ImageView image = (ImageView) view.findViewById(R.id.letter);
+//        b = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+//        image.setImageBitmap(b);
 
+        Button btn_write = (Button) view.findViewById(R.id.btn_write);
+        btn_write.setOnClickListener(this);
+        Button btn_show = (Button) view.findViewById(R.id.btn_show);
+        btn_show.setOnClickListener(this);
+        Button btn_send = (Button) view.findViewById(R.id.btn_send);
+        btn_send.setOnClickListener(this);
+        return view;
         }
-//        Glide.with(mContext).load(imageAsBytes).into(image);
-//        new Handler().postDelayed(new Runnable()
-//        {
-//            @Override
-//            public void run()
-//            {
-//                Log.d("ITPANGPANG","img("+400 +" x "+650+")");
-//            }
-//        }, 2000);
-
-        return view;//B@23b75c7 --> B@69a483d
-    }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_layout3:
+            case R.id.btn_write:
                 Intent i = new Intent(getActivity(), tab4.class);
-                Toast.makeText(getActivity().getApplicationContext(), "layout Suga", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity().getApplicationContext(), "write a letter!", Toast.LENGTH_LONG).show();
                 startActivity(i);
-
+                break;
+            case R.id.btn_show:
+                Intent i2 = new Intent(getActivity(), tab5.class);
+                Toast.makeText(getActivity().getApplicationContext(), "show the letter!", Toast.LENGTH_LONG).show();
+                startActivity(i2);
+                break;
+            case R.id.btn_send:
+                Intent i3 = new Intent(getActivity(), letter_popup.class);
+                Toast.makeText(getActivity().getApplicationContext(), "send the letter!", Toast.LENGTH_LONG).show();
+                startActivity(i3);
                 break;
         }
     }

@@ -84,9 +84,7 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
 //        Bitmap bm = BitmapFactory.decodeFile(imgpath, bfo);
 //        Bitmap resized = Bitmap.createScaledBitmap(bm, 410, 400, true);
 //        iv.setImageBitmap(resized);
-        Log.d("&&&&&&&&&&&&&&&&&&&&&", "tab4");
         Glide.with(mContext).load(imgpath).into(iv);
-        Log.d("&@@@@@@@@@@@@@@@@@@@@@@", "tab4");
         new Handler().postDelayed(new Runnable()
         {
             @Override
@@ -95,14 +93,9 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
                 Log.d("ITPANGPANG","img("+200 +" x "+300+")");
             }
         }, 2000);
-        Log.d("&################@", "tab4");
         //container = (LinearLayout)findViewById(R.id.activity_tab4);
         Button send1 = (Button) findViewById(R.id.send);
         send1.setOnClickListener(this);
-        Log.d("&##%%%%%%%%%#####@", "tab4");
-        Button layout1 = (Button) findViewById(R.id.btn_layout);
-        layout1.setOnClickListener(this);
-        Log.d("&##%^^^^^^^#####@", "tab4");
 
     }
 
@@ -124,7 +117,6 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
                 String address = MediaStore.Images.Media.insertImage(getContentResolver(),captureView,"title", null);
                 //saveBitmapToJpeg(captureView, "cacheimg");
                 //data/user/0/com.example.myapplication/app_imageDir
-                Log.d("$$$$$$",address);
 
                 //비트맵 저장
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -136,19 +128,8 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
                 editor.putString("screenshot_internal_path", address);
                 editor.commit();
                 Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_SHORT).show();
-                new tab3();
                 finish();
                 break;
-
-            case R.id.btn_layout:
-                Intent t = new Intent(mContext, tab5.class);
-                Toast.makeText(mContext.getApplicationContext(), "layout Suga===", Toast.LENGTH_LONG).show();
-                startActivity(t);
-                finish();
-                break;
-
-
-
         }
 
     }
