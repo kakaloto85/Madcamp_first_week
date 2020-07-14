@@ -1,45 +1,31 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
-import android.app.FragmentManager;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.util.Base64;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class tab4 extends AppCompatActivity implements View.OnClickListener {
+public class tab5 extends AppCompatActivity implements View.OnClickListener {
     private static String TAG = "MainActivity";
     private Button send;
     private LinearLayout container;
@@ -53,7 +39,7 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tab4);
+        setContentView(R.layout.activity_tab5);
         mContext = this;
 
         //editor cursor 없애기
@@ -93,10 +79,10 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
             }
         }, 2000);
         //container = (LinearLayout)findViewById(R.id.activity_tab4);
-        Button send1 = (Button) findViewById(R.id.send);
-        send1.setOnClickListener(this);
-        Button layout1 = (Button) findViewById(R.id.btn_layout);
-        layout1.setOnClickListener(this);
+        Button send = (Button) findViewById(R.id.send2);
+        send.setOnClickListener(this);
+        Button layout = (Button) findViewById(R.id.btn_layout2);
+        layout.setOnClickListener(this);
     }
 
     public String saveToInternalStorage(Bitmap bitmapImage){
@@ -162,7 +148,7 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View v){
         switch (v.getId()) {
-            case R.id.send:
+            case R.id.send2:
                 View container = getWindow().getDecorView();
                 container.buildDrawingCache();
                 Bitmap cvt = container.getDrawingCache();
@@ -190,9 +176,8 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
                 Intent i = new Intent(mContext, MainActivity.class);
                 startActivity(i);
                 break;
-
-            case R.id.btn_layout:
-                Intent t = new Intent(mContext, tab5.class);
+            case R.id.btn_layout2:
+                Intent t = new Intent(mContext, tab4.class);
                 Toast.makeText(mContext.getApplicationContext(), "layout Suga", Toast.LENGTH_LONG).show();
                 startActivity(t);
                 break;

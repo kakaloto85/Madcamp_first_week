@@ -30,25 +30,27 @@
         android:orientation="vertical"
         app:layout_constraintGuide_begin="400dp" />
 
-    <Button android:id="@+id/calltab4"
-        android:layout_width="0dip"
+    <Button android:id="@+id/btn_layout3"
+        android:layout_width="150dp"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/calltab5"
         app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toLeftOf="@+id/calltab4"
         android:background="@drawable/buttonshape"
-        android:text="write letter"/>
+        android:text="write"/>
+
     <Button android:id="@+id/calltab5"
         android:layout_width="0dip"
         android:layout_weight="1"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toRightOf="@+id/calltab4"
+        app:layout_constraintLeft_toRightOf="@+id/btn_layout3"
         app:layout_constraintRight_toRightOf="parent"
         android:background="@drawable/buttonshape"
         android:text="send"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

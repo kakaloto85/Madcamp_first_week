@@ -37,6 +37,7 @@
         </provider>
 
         <activity android:name=".tab4" />
+        <activity android:name=".tab5" />
         <activity
             android:name=".ImagePopup"
             android:label="imagepop" />

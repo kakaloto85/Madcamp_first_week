@@ -31,20 +31,21 @@
             android:id="@+id/Tab1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/dragon1" />
+            android:icon="@drawable/ic_face_24px" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/Tab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:icon="@drawable/dragon2"
+            android:icon="@drawable/ic_bts"
             />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/Tab3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_text3" />
+            android:icon="@drawable/ic_sms_24px"
+             />
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager

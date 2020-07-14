@@ -37,6 +37,7 @@ public class tab3 extends Fragment implements View.OnClickListener {
 //    private String phonenumber = sp.getString("number", "");
     private Context mContext;
     public Bitmap b;
+    int count = 0;
 
     public tab3() {
         // Required empty public constructor
@@ -69,29 +70,27 @@ public class tab3 extends Fragment implements View.OnClickListener {
 //            }
 //        }, 2000);
 
-        Button btn = (Button) view.findViewById(R.id.calltab4);
-        btn.setOnClickListener(this);
         Button bts = (Button) view.findViewById(R.id.calltab5);
         bts.setOnClickListener(this);
+        Button layout = (Button) view.findViewById(R.id.btn_layout3);
+        layout.setOnClickListener(this);
         return view;//B@23b75c7 --> B@69a483d
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.calltab4:
-                Intent intent = new Intent(getActivity(), tab4.class);
-                startActivity(intent);
+            case R.id.btn_layout3:
+                    Intent i = new Intent(getActivity(), tab4.class);
+                    Toast.makeText(getActivity().getApplicationContext(), "layout Suga", Toast.LENGTH_LONG).show();
+                    startActivity(i);
                 break;
             case R.id.calltab5:
-
                 String pathofBmp = sp.getString("screenshot_internal_path", "");
                 Log.d("@sdk----------------", pathofBmp); //  /storage/emulated/0/capture.jpeg
                 Uri bmpUri = Uri.parse(pathofBmp);
                 Log.d("@uri----------------", bmpUri.toString()); //   /storage/emulated/0/capture.jpeg
                 sendMMS(bmpUri);
-
-
                 break;
         }
     }

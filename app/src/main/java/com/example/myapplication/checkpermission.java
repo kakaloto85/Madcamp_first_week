@@ -11,10 +11,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
-public class checkpermission extends Activity {
+public class checkpermission extends AppCompatActivity {
     private final int PERMISSIONS_ALL = 1000;
     String[] PERMISSIONS = {
             android.Manifest.permission.READ_CONTACTS,
