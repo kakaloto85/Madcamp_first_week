@@ -31,13 +31,14 @@
             android:id="@+id/Tab1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_text1" />
+            android:icon="@drawable/dragon1" />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/Tab2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/tab_text2" />
+            android:icon="@drawable/dragon2"
+            />
 
         <com.google.android.material.tabs.TabItem
             android:id="@+id/Tab3"

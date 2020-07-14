@@ -57,7 +57,7 @@ public class tab3 extends Fragment implements View.OnClickListener {
         byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
         ImageView image = (ImageView) view.findViewById(R.id.letter);
         b = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-        Bitmap resized = Bitmap.createScaledBitmap(b, 200, 300, true);
+        Bitmap resized = Bitmap.createScaledBitmap(b, 300, 450, true);
         image.setImageBitmap(resized);
 //        Glide.with(mContext).load(imageAsBytes).into(image);
 //        new Handler().postDelayed(new Runnable()
