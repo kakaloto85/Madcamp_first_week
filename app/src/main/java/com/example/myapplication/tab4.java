@@ -135,7 +135,7 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
                 editor.commit();
                 editor.putString("screenshot_internal_path", address);
                 editor.commit();
-                Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_SHORT).show();
                 new tab3();
                 finish();
                 break;
