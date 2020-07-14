@@ -13,6 +13,7 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -79,9 +80,6 @@ public class tab3 extends Fragment implements View.OnClickListener {
         sp = getActivity().getSharedPreferences("DB", MODE_PRIVATE);
         String encoded = sp.getString("screenshot", "");
         Log.d("&&&&&&",encoded);
-        while(encoded=="") {
-
-        }
         if (encoded !="") {
             byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
             ImageView image = (ImageView) view.findViewById(R.id.letter);
@@ -119,36 +117,15 @@ public class tab3 extends Fragment implements View.OnClickListener {
                 Intent i = new Intent(getActivity(), tab4.class);
                 Toast.makeText(getActivity().getApplicationContext(), "layout Suga", Toast.LENGTH_LONG).show();
                 startActivity(i);
-                Log.d("&*&**&*&*&","789999999999999999999999999999999999999999999999999999999999999999999999999999");
+
+                refresh();
 
                 break;
         }
     }
-
-    public void sendMMS(Uri uri) {
-        SharedPreferences sp = getActivity().getSharedPreferences("DB", MODE_PRIVATE);
-        String number = sp.getString("number", "");
-        String name = sp.getString("name", "");
-        if (number != "") {
-            try {
-                Intent intent = new Intent(Intent.ACTION_SEND);
-                intent.putExtra("address", number);
-                intent.putExtra("subject", "MMS Test");
-                intent.setType("image/jpg");
-                intent.putExtra(Intent.EXTRA_STREAM, uri);
-                intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//            startActivityForResult(Intent.createChooser(intent, "send"), 0);
-//        }
-//        catch (ActivityNotFoundException e) {
-//            Toast.makeText(getActivity().getApplicationContext(), "no sns", Toast.LENGTH_SHORT).show();
-                startActivity(Intent.createChooser(intent, "send"));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-    else{
-        Toast.makeText(getContext(),"편지 받을 사람을 알려주세요!",Toast.LENGTH_SHORT).show();
-        return;
+    private void refresh(){
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.detach(this).attach(this).commit();
     }
-}}
+
+}
