@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:id="@+id/text1"
-            android:textSize="50sp"
+            android:textSize="100sp"
             android:fontFamily="@font/jennsue"
             android:text="Fromme." />
     </LinearLayout>

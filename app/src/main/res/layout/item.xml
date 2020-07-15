@@ -45,6 +45,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:fontFamily="@font/jennsue"
+            android:textSize="13sp"
             android:background="@drawable/buttonshape"
             android:text="편지 쓰기" />
 

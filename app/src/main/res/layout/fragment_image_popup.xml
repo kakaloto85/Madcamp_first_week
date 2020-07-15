@@ -24,6 +24,7 @@
         android:layout_weight="0"
         android:layout_height="wrap_content"
         android:fontFamily="@font/jennsue"
+        android:textSize="20sp"
         android:background="@drawable/buttonshape"
         android:text="select"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

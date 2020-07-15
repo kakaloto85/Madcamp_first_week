@@ -18,6 +18,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/buttonshape"
         android:fontFamily="@font/jennsue"
+        android:textSize="30sp"
         android:text="write"/>
 
     <Button
@@ -28,6 +29,7 @@
         android:layout_marginTop="20dp"
         android:background="@drawable/buttonshape"
         android:fontFamily="@font/jennsue"
+        android:textSize="30sp"
         android:text="show"/>
 
     <Button
@@ -37,6 +39,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@drawable/buttonshape"
+        android:textSize="30sp"
         android:fontFamily="@font/jennsue"
         android:text="send"/>
 </LinearLayout>
