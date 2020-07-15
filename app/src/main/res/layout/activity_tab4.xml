@@ -32,6 +32,7 @@
         android:id="@+id/text1"
         android:textSize="20sp"
         android:text="To."
+        android:fontFamily="@font/jennsue"
         android:layout_marginLeft="15dp" />
 
     <EditText
@@ -43,6 +44,7 @@
         android:cursorVisible="false"
         android:maxLength="10"
         android:textIsSelectable="false"
+        android:fontFamily="@font/dx"
         app:layout_constraintBottom_toTopOf="@+id/guideline1"
         app:layout_constraintLeft_toRightOf="@+id/text1"
         app:layout_constraintRight_toRightOf="parent" />
@@ -62,6 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:background="@null"
+        android:fontFamily="@font/dx"
         android:textIsSelectable="false"
         />
     <LinearLayout
@@ -78,6 +81,7 @@
         android:id="@+id/text2"
         android:textSize="20sp"
         android:text="From."
+        android:fontFamily="@font/jennsue"
         android:layout_marginLeft="15dp" />
 
     <EditText
@@ -89,6 +93,7 @@
         android:cursorVisible="false"
         android:maxLength="6"
         android:textIsSelectable="false"
+        android:fontFamily="@font/dx"
         app:layout_constraintLeft_toRightOf="@+id/text2"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/guidelinbot" />
@@ -113,6 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="1"
+            android:fontFamily="@font/jennsue"
             android:background="@drawable/buttonshape"
             android:text="save"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -127,6 +133,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_weight="1"
+            android:fontFamily="@font/jennsue"
             android:background="@drawable/buttonshape"
             android:text="back"
             app:layout_constraintBottom_toBottomOf="parent"

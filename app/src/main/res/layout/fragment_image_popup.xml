@@ -23,6 +23,7 @@
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_weight="0"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/jennsue"
         android:background="@drawable/buttonshape"
         android:text="select"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

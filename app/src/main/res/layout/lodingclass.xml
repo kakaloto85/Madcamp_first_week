@@ -23,8 +23,8 @@
             android:layout_gravity="center"
             android:id="@+id/text1"
             android:textSize="50sp"
-            android:fontFamily="@font/fontstyle"
-            android:text="Fromme" />
+            android:fontFamily="@font/jennsue"
+            android:text="Fromme." />
     </LinearLayout>
 </LinearLayout>
 
