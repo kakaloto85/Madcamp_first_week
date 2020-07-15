@@ -43,7 +43,7 @@ public class tab5 extends Activity implements View.OnClickListener {
 
         SharedPreferences sp = getSharedPreferences("DB", MODE_PRIVATE);
         String encoded = sp.getString("screenshot", "");
-        if(encoded == null){
+        if(encoded == ""){
             Toast.makeText(getApplicationContext(), "편지를 써주세요!", Toast.LENGTH_SHORT).show();
             finish();
         }else{
