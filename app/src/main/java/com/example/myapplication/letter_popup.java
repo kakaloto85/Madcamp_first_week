@@ -31,11 +31,8 @@ public class letter_popup extends Activity {
         String picture_exist=sp.getString("imgPath","");
         if(picture_exist!="") {
             String pathofBmp = sp.getString("screenshot_internal_path", "");
-            Log.d("@sdk----------------", pathofBmp); //  /storage/emulated/0/capture.jpeg
             Uri bmpUri = Uri.parse(pathofBmp);
-            Log.d("@uri----------------", bmpUri.toString()); //   /storage/emulated/0/capture.jpeg
             if (pathofBmp != "") {
-
                 sendMMS(bmpUri);
                 SharedPreferences.Editor editor = sp.edit();
                 editor.remove("screenshot");

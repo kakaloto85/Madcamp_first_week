@@ -24,6 +24,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.material.tabs.TabLayout;
@@ -42,24 +43,15 @@ public class tab5 extends Activity implements View.OnClickListener {
 
         SharedPreferences sp = getSharedPreferences("DB", MODE_PRIVATE);
         String encoded = sp.getString("screenshot", "");
-        byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
-        ImageView image = (ImageView) findViewById(R.id.letter);
-        Bitmap b = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
-        image.setImageBitmap(b);
-
-        /** 전송메시지 */
-//        Intent i = getIntent();
-//        Bundle extras = i.getExtras();
-//        String imgPath = extras.getString("filename");
-
-        /** 완성된 이미지 보여주기  */
-//        BitmapFactory.Options bfo = new BitmapFactory.Options();
-////        ImageView iv = (ImageView) findViewById(R.id.imageView);
-//        Bitmap bm = BitmapFactory.decodeFile(imgPath, bfo);
-//        Bitmap resized = Bitmap.createScaledBitmap(bm, imgWidth, imgHeight, true);
-//        iv.setScaleType(ImageView.ScaleType.CENTER);
-//        iv.setImageBitmap(bm); //bm -> resized\
-////        Glide.with(mContext).load(imgPath).into(image);
+        if(encoded == null){
+            Toast.makeText(getApplicationContext(), "편지를 써주세요!", Toast.LENGTH_SHORT).show();
+            finish();
+        }else{
+            byte[] imageAsBytes = Base64.decode(encoded.getBytes(), Base64.DEFAULT);
+            ImageView image = (ImageView) findViewById(R.id.letter);
+            Bitmap b = BitmapFactory.decodeByteArray(imageAsBytes, 0, imageAsBytes.length);
+            image.setImageBitmap(b);
+        }
 
 
         /** 리스트로 가기 버튼*/

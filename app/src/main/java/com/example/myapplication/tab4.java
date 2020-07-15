@@ -96,6 +96,8 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
         //container = (LinearLayout)findViewById(R.id.activity_tab4);
         Button send1 = (Button) findViewById(R.id.send);
         send1.setOnClickListener(this);
+        Button totab3 = (Button) findViewById(R.id.btn_totab3);
+        totab3.setOnClickListener(this);
 
     }
 
@@ -128,6 +130,9 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
                 editor.putString("screenshot_internal_path", address);
                 editor.commit();
                 Toast.makeText(getApplicationContext(), "Captured!", Toast.LENGTH_SHORT).show();
+                finish();
+                break;
+            case R.id.btn_totab3:
                 finish();
                 break;
         }
