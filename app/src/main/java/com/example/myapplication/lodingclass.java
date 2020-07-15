@@ -4,6 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.ImageView;
+
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 
 public class lodingclass extends Activity {
 
@@ -11,6 +15,12 @@ public class lodingclass extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lodingclass);
+
+        ImageView load = (ImageView) findViewById(R.id.imageView);
+        Glide.with(this).load(R.raw.giphy).into(load);
+
+
+
 
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
@@ -23,4 +33,5 @@ public class lodingclass extends Activity {
         }, 2000);
     }
 }
+
 

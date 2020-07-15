@@ -111,7 +111,7 @@ public class tab4 extends AppCompatActivity implements View.OnClickListener {
                 container.buildDrawingCache();
                 Bitmap cvt = container.getDrawingCache();
                 //원본 이미지 crop
-                Bitmap captureView = Bitmap.createBitmap(cvt, 0, 250, cvt.getWidth(), cvt.getHeight() - 450);
+                Bitmap captureView = Bitmap.createBitmap(cvt, 5, 80, cvt.getWidth() - 5, cvt.getHeight() - 330);
                 //sharedpreferences에 저장
                 sp = getSharedPreferences("DB",MODE_PRIVATE);
                 SharedPreferences.Editor editor = sp.edit();
