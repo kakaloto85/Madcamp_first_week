@@ -100,17 +100,17 @@ public class tab3 extends Fragment implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btn_write:
                 Intent i = new Intent(getActivity(), tab4.class);
-                Toast.makeText(getActivity().getApplicationContext(), "write a letter!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity().getApplicationContext(), "write a letter!", Toast.LENGTH_LONG).show();
                 startActivity(i);
                 break;
             case R.id.btn_show:
                 Intent i2 = new Intent(getActivity(), tab5.class);
-                Toast.makeText(getActivity().getApplicationContext(), "show the letter!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity().getApplicationContext(), "show the letter!", Toast.LENGTH_LONG).show();
                 startActivity(i2);
                 break;
             case R.id.btn_send:
                 Intent i3 = new Intent(getActivity(), letter_popup.class);
-                Toast.makeText(getActivity().getApplicationContext(), "send the letter!", Toast.LENGTH_LONG).show();
+//                Toast.makeText(getActivity().getApplicationContext(), "send the letter!", Toast.LENGTH_LONG).show();
                 startActivity(i3);
                 break;
         }
