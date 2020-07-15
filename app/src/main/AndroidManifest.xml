@@ -38,7 +38,8 @@
         </provider>
 
         <activity android:name=".tab4" />
-        <activity android:name=".tab5" />
+        <activity android:name=".tab5"
+            android:theme="@android:style/Theme.DeviceDefault.Light.Dialog"/>
         <activity
             android:name=".ImagePopup"
             android:label="imagepop"
